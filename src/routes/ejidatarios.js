@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 // Crear un nuevo ejidatario
-router.post("/", createEjidatario);
+router.post("/", upload.single("documentoPDF"),createEjidatario);
 
 // Obtener todos los ejidatarios
 router.get("/", getEjidatarios);

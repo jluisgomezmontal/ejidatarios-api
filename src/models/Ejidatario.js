@@ -9,6 +9,7 @@ const ejidatarioSchema = new mongoose.Schema({
     domicilio: { type: String, required: true },
     telefono: { type: String, required: true },
     curp: { type: String, required: true, unique: true },
+    documentoPDF: { type: Buffer }, // Almacenar el archivo directamente
 });
 
 const Ejidatario = mongoose.model("Ejidatario", ejidatarioSchema);

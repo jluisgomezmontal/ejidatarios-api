@@ -2,10 +2,36 @@ import Ejidatario from "../models/Ejidatario.js";
 
 export const createEjidatario = async (req, res) => {
   try {
-    const ejidatario = new Ejidatario(req.body);
-    await ejidatario.save();
-    res.status(201).json(ejidatario);
+    const {
+      iD_Ejidatario,
+      calidadAgraria,
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      domicilio,
+      telefono,
+      curp
+    } = req.body;
+
+    // Crear un nuevo objeto Ejidatario
+    const nuevoEjidatario = new Ejidatario({
+      iD_Ejidatario,
+      calidadAgraria,
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      domicilio,
+      telefono,
+      curp,
+      documentoPDF: req.file ? req.file.buffer : null, // Guardar el archivo si existe
+    });
+
+    // Guardar en la base de datos
+    await nuevoEjidatario.save();
+
+    res.status(201).json(nuevoEjidatario);
   } catch (err) {
+    console.error(err);
     res.status(400).json({ error: err.message });
   }
 };
