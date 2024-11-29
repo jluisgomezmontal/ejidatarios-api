@@ -8,6 +8,7 @@ import {
   getEjidatarioByPhoneNumber,
   getEjidatarioByCurp,
 } from "../controllers/ejidatariosController.js";
+import upload from "../middleware/upLoadFile.js";
 
 const router = express.Router();
 
