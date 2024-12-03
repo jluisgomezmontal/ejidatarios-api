@@ -10,7 +10,7 @@ export const createEjidatario = async (req, res) => {
       apellidoMaterno,
       domicilio,
       telefono,
-      curp
+      curp,
     } = req.body;
 
     // Crear un nuevo objeto Ejidatario
@@ -23,7 +23,7 @@ export const createEjidatario = async (req, res) => {
       domicilio,
       telefono,
       curp,
-      documentoPDF: req.file ? req.file.buffer : null, // Guardar el archivo si existe
+      documentoPDF: req.file.filename, // Guardar el archivo si existe
     });
 
     // Guardar en la base de datos
