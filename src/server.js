@@ -11,13 +11,9 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json()); // Reemplaza bodyParser.json()
-app.use(
-    cors({
-      origin: "http://localhost:3000", // Cambia por tu dominio en producción
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true, // Si estás manejando cookies o encabezados personalizados
-    })
-); // Habilitar CORS
+app.use(cors({
+    origin: ["http://localhost:5173", "https://ejido-san-marcos.netlify.app/"]
+}))// Habilitar CORS
 
 // Conexión a la base de datos
 mongoose
