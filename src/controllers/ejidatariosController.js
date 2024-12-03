@@ -1,7 +1,6 @@
 import Ejidatario from "../models/Ejidatario.js";
 
 export const createEjidatario = async (req, res) => {
-  console.log(req.file)
   try {
     const {
       iD_Ejidatario,
