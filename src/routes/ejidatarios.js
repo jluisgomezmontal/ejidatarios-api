@@ -6,7 +6,7 @@ import {
   updateEjidatario,
   deleteEjidatario,
   getEjidatarioByPhoneNumber,
-  getEjidatarioByCurp,
+  getEjidatarioByCurp, getFile,
 } from "../controllers/ejidatariosController.js";
 import upload from "../middleware/upLoadFile.js";
 
@@ -25,6 +25,7 @@ router.get("/curp/:curp", getEjidatarioByCurp);
 
 // Obtener un ejidatario por número de celular
 router.get("/phone/:telefono", getEjidatarioByPhoneNumber);
+router.get("/files/:fileName", getFile);
 
 // Actualizar un ejidatario
 router.put("/:id", updateEjidatario);
