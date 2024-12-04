@@ -25,7 +25,6 @@ export const createEjidatario = async (req, res) => {
       curp,
       documentoPDF: req.file.filename, // Guardar el archivo si existe
     });
-console.log(req.file)
     // Guardar en la base de datos
     await nuevoEjidatario.save();
 
