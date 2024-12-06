@@ -69,9 +69,9 @@ export const getEjidatarioByCurp = async (req, res) => {
 export const updateEjidatario = async (req, res) => {
   try {
     const ejidatario = await Ejidatario.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
+        req.params.id,
+        req.body,
+        { new: true }
     );
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
@@ -108,7 +108,6 @@ export const deleteEjidatario = async (req, res) => {
 export const getFile = async (req, res) => {
   try {
     const filePath = `../../../../var/data/uploads/${req.params.fileName}`;
-    console.log(req.params.fileName)
     res.download(filePath);
   } catch (err) {
     res.status(400).json({ error: err.message });
