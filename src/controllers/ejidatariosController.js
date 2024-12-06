@@ -107,9 +107,8 @@ export const deleteEjidatario = async (req, res) => {
 
 export const getFile = async (req, res) => {
   try {
-    const UPLOADS_DIR = path.join('../../../../var/data/uploads');
-    const filePath = path.join(UPLOADS_DIR, req.params.filename);
-      res.sendFile(filePath);
+    const filePath = `../../../../var/data/uploads/${req.params.filename}`;
+      res.download(filePath);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
