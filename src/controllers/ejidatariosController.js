@@ -8,11 +8,11 @@ export const createEjidatario = async (req, res) => {
       nombre,
       apellidoPaterno,
       apellidoMaterno,
-      domicilio,
       telefono,
       curp,
     } = req.body;
 
+    const fileName = req.file.filename;
     // Crear un nuevo objeto Ejidatario
     const nuevoEjidatario = new Ejidatario({
       iD_Ejidatario,
@@ -20,10 +20,9 @@ export const createEjidatario = async (req, res) => {
       nombre,
       apellidoPaterno,
       apellidoMaterno,
-      domicilio,
       telefono,
       curp,
-      documentoPDF: req.file.filename, // Guardar el archivo si existe
+      documentoPDF:`${apellidoPaterno}-${nombre}-${fileName}`// Guardar el archivo si existe
     });
     // Guardar en la base de datos
     await nuevoEjidatario.save();
@@ -107,7 +106,7 @@ export const deleteEjidatario = async (req, res) => {
 
 export const getFile = async (req, res) => {
   try {
-    const filePath = `../../../../var/data/uploads/${req.params.fileName}`;
+    const filePath = `../../../../var/data/uploads/ejidatarios${req.params.fileName}`;
     res.download(filePath);
   } catch (err) {
     res.status(400).json({ error: err.message });

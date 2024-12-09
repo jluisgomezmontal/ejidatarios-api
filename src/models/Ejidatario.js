@@ -6,7 +6,6 @@ const ejidatarioSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
     apellidoPaterno: { type: String, required: true },
     apellidoMaterno: { type: String, required: true },
-    domicilio: { type: String, required: true },
     telefono: { type: String, required: true },
     curp: { type: String, required: true, unique: true },
     documentoPDF: { type: String }
