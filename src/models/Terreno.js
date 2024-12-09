@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const terrenoSchema = new mongoose.Schema({
-  numeroCertificado: { type: String, unique: true },
+  numeroCertificado: { type: String, },
   tipoCertificado: { type: String },
   numeroParcela: { type: String},
   actoJuridico: { type: String },
