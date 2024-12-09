@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
         cb(null, '../../../../var/data/uploads/ejidatarios');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now());
+        cb(null, Date.now().toString());
     }
 });
 const upload = multer({ storage: storage });
