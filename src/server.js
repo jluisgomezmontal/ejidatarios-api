@@ -22,8 +22,7 @@ app.use((req, res, next) => {
 // Conexión a la base de datos
 mongoose
     .connect(
-        "mongodb+srv://luis:220690@ejido.lpplq.mongodb.net/?retryWrites=true&w=majority&appName=ejido",
-        { useNewUrlParser: true, useUnifiedTopology: true }
+        "mongodb+srv://luis:220690@ejido.lpplq.mongodb.net/?retryWrites=true&w=majority&appName=ejido"
     )
     .then(() => console.log("Conectado a MongoDB"))
     .catch((err) => console.error("Error al conectar a MongoDB:", err));

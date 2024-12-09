@@ -12,7 +12,7 @@ export const createEjidatario = async (req, res) => {
       curp,
     } = req.body;
 
-    const fileName = req.file.filename;
+    const fileName = req.file?.filename;
     // Crear un nuevo objeto Ejidatario
     const nuevoEjidatario = new Ejidatario({
       iD_Ejidatario,
@@ -22,7 +22,7 @@ export const createEjidatario = async (req, res) => {
       apellidoMaterno,
       telefono,
       curp,
-      documentoPDF: fileName// Guardar el archivo si existe
+      documentoPDF: fileName ? fileName : ""// Guardar el archivo si existe
     });
     // Guardar en la base de datos
     await nuevoEjidatario.save();
@@ -67,8 +67,9 @@ export const getEjidatarioByCurp = async (req, res) => {
 
 export const updateEjidatario = async (req, res) => {
   try {
+    const ejidatarioFind = await Ejidatario.findOne({iD_Ejidatario : req.params.id});
     const ejidatario = await Ejidatario.findByIdAndUpdate(
-        req.params.id,
+        ejidatarioFind._id,
         req.body,
         { new: true }
     );
@@ -93,21 +94,24 @@ export const getEjidatarioByPhoneNumber = async (req, res) => {
   }
 };
 
-export const deleteEjidatario = async (req, res) => {
+export const getFile = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findByIdAndDelete(req.params.id);
-    if (!ejidatario)
-      return res.status(404).json({ error: "Ejidatario no encontrado" });
-    res.status(200).json({ message: "Ejidatario eliminado" });
+    const filePath = `../../../../var/data/uploads/ejidatarios/${req.params.fileName}`;
+    res.download(filePath);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-export const getFile = async (req, res) => {
+export const deleteEjidatario = async (req, res) => {
   try {
-    const filePath = `../../../../var/data/uploads/ejidatarios/${req.params.fileName}`;
-    res.download(filePath);
+    const ejidatario = await Ejidatario.findOne({iD_Ejidatario : req.params.id});
+    await Ejidatario.findByIdAndDelete(ejidatario._id);
+
+    if (!ejidatario)
+      return res.status(404).json({ error: "Ejidatario no encontrado" });
+
+    res.status(200).json({ message: "Ejidatario eliminado exitosamente" });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
