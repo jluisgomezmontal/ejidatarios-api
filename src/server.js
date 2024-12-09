@@ -11,13 +11,9 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json()); // Reemplaza bodyParser.json()
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://ejido-san-marcos.netlify.app");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    next();
-});
-
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://ejido-san-marcos.netlify.app']
+}));
 
 // Conexión a la base de datos
 mongoose
