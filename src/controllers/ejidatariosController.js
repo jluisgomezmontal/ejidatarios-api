@@ -22,7 +22,7 @@ export const createEjidatario = async (req, res) => {
       apellidoMaterno,
       telefono,
       curp,
-      documentoPDF:`${apellidoPaterno}-${nombre}-${fileName}`// Guardar el archivo si existe
+      documentoPDF: fileName// Guardar el archivo si existe
     });
     // Guardar en la base de datos
     await nuevoEjidatario.save();
