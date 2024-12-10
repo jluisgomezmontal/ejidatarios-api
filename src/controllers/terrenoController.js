@@ -60,3 +60,12 @@ export const getNumeroParcela = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+export const getFileTerreno = async (req, res) => {
+    try {
+        const filePath = `../../../../var/data/uploads/terrenos/${req.params.fileName}`;
+        res.download(filePath);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
