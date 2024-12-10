@@ -36,7 +36,7 @@ export const getTerrenos = async (req, res) => {
 
 export const getTerrenosBySujeto = async (req, res) => {
     try {
-        const terrenos = await Terreno.find({iD_Ejidatario : req.params.iD_Ejidatario});
+        const terrenos = await Terreno.find({iD_Ejidatario : req.params.idSujeto});
         res.status(200).json(terrenos);
     } catch (err) {
         res.status(400).json({ error: err.message });
