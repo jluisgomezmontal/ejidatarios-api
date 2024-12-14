@@ -2,32 +2,13 @@ import Ejidatario from "../models/Ejidatario.js";
 
 export const createEjidatario = async (req, res) => {
   try {
-    const {
-      iD_Ejidatario,
-      calidadAgraria,
-      nombre,
-      apellidoPaterno,
-      apellidoMaterno,
-      telefono,
-      curp,
-    } = req.body;
-
-    const fileName = req.file?.filename;
-    // Crear un nuevo objeto Ejidatario
-    const nuevoEjidatario = new Ejidatario({
-      iD_Ejidatario,
-      calidadAgraria,
-      nombre,
-      apellidoPaterno,
-      apellidoMaterno,
-      telefono,
-      curp,
-      documentoPDF: fileName ? fileName : ""// Guardar el archivo si existe
-    });
-    // Guardar en la base de datos
+    req.body.documentoPDF = req.file ? req.file.filename : "";
+    const nuevoEjidatario = new Ejidatario(req.body);
     await nuevoEjidatario.save();
-
-    res.status(201).json(nuevoEjidatario);
+    res.status(201).json({
+      msg: "Ejidatario creado con exito",
+      nuevoEjidatario
+    });
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: err.message });
@@ -39,7 +20,10 @@ export const getEjidatarios = async (req, res) => {
     const ejidatarios = await Ejidatario.find();
     res.status(200).json(ejidatarios);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ 
+      error: err.message,
+      msg: "No se encontraron ejidatarios"
+    });
   }
 };
 

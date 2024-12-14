@@ -1,27 +1,15 @@
+import Ejidatario from "../models/Ejidatario.js";
 import Terreno from "../models/Terreno.js"
 
 export const createTerreno = async (req, res) => {
-    const {
-        numeroCertificado,
-        tipoCertificado,
-        numeroParcela,
-        actoJuridico,
-        iD_Ejidatario,
-        parcelaOrigen,
-    } =req.body;
-    const fileName = req.file?.filename;
+    req.body.documentoPDF = req.file ? req.file.filename : "";
     try {
-        const terreno = new Terreno({
-            numeroCertificado,
-            tipoCertificado,
-            numeroParcela,
-            actoJuridico,
-            iD_Ejidatario,
-            parcelaOrigen,
-            documentoPDF: fileName ? fileName : ""// Guardar el archivo si existe
-        });
+        const terreno = new Terreno(req.body);
         await terreno.save();
-        res.status(201).json(terreno);
+        res.status(201).json({
+            msg: "Terreno creado con exito",
+            terreno
+        });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -29,7 +17,7 @@ export const createTerreno = async (req, res) => {
 
 export const getTerrenos = async (req, res) => {
     try {
-        const terrenos = await Terreno.find();
+        const terrenos = await Terreno.find().populate('propietario');;
         res.status(200).json(terrenos);
     } catch (err) {
         res.status(400).json({ error: err.message });
