@@ -5,10 +5,10 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         if (req.body.nombre){
             cb(null, '../../../../var/data/uploads/ejidatarios');
+            //cb(null, 'uploads/ejidatarios');
         }else{
             cb(null, '../../../../var/data/uploads/terrenos');
         }
-        //cb(null, 'uploads/ejidatarios');
     },
     filename: (req, file, cb) => {
         if (req.body.nombre){

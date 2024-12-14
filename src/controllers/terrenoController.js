@@ -7,6 +7,7 @@ export const createTerreno = async (req, res) => {
         numeroParcela,
         actoJuridico,
         iD_Ejidatario,
+        parcelaOrigen,
     } =req.body;
     const fileName = req.file?.filename;
     try {
@@ -16,6 +17,7 @@ export const createTerreno = async (req, res) => {
             numeroParcela,
             actoJuridico,
             iD_Ejidatario,
+            parcelaOrigen,
             documentoPDF: fileName ? fileName : ""// Guardar el archivo si existe
         });
         await terreno.save();
