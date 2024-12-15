@@ -33,6 +33,17 @@ export const getTerrenosById = async (req, res) => {
     }
 };
 
+export const updateTerreno = async (req, res) => {
+    try {
+      const terreno = await Terreno.findByIdAndUpdate(req.params._id,req.body);
+      if (!terreno)
+        return res.status(404).json({ error: "Terreno no encontrado" });
+      res.status(200).json({msg: "Terreno actualizado con exito",terreno});
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+};
+
 export const getTerrenosBySujeto = async (req, res) => {
     try {
         const terrenos = await Terreno.find({iD_Ejidatario : req.params.idSujeto}).populate('propietario');
