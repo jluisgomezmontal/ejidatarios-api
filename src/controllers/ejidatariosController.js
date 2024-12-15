@@ -29,6 +29,17 @@ export const getEjidatarios = async (req, res) => {
 
 export const getEjidatarioById = async (req, res) => {
   try {
+    const ejidatario = await Ejidatario.findOne({_id : req.params.id});
+    if (!ejidatario)
+      return res.status(404).json({ error: "Ejidatario no encontrado" });
+    res.status(200).json(ejidatario);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const getEjidatarioByEjidatario = async (req, res) => {
+  try {
     const ejidatario = await Ejidatario.findOne({iD_Ejidatario : req.params.id});
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
@@ -51,15 +62,10 @@ export const getEjidatarioByCurp = async (req, res) => {
 
 export const updateEjidatario = async (req, res) => {
   try {
-    const ejidatarioFind = await Ejidatario.findOne({iD_Ejidatario : req.params.id});
-    const ejidatario = await Ejidatario.findByIdAndUpdate(
-        ejidatarioFind._id,
-        req.body,
-        { new: true }
-    );
+    const ejidatario = await Ejidatario.findByIdAndUpdate(req.params._id,req.body);
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
-    res.status(200).json(ejidatario);
+    res.status(200).json({msg: "Ejidatario actualizado con exito",ejidatario});
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -89,12 +95,9 @@ export const getFile = async (req, res) => {
 
 export const deleteEjidatario = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findOne({iD_Ejidatario : req.params.id});
-    await Ejidatario.findByIdAndDelete(ejidatario._id);
-
+    await Ejidatario.findByIdAndDelete(req.params._id);
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
-
     res.status(200).json({ message: "Ejidatario eliminado exitosamente" });
   } catch (err) {
     res.status(400).json({ error: err.message });

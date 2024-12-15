@@ -8,6 +8,7 @@ import {
   getEjidatarioByCurp,
   getFile,
   deleteEjidatario,
+  getEjidatarioByEjidatario,
 } from "../controllers/ejidatariosController.js";
 import upload from "../middleware/upLoadFile.js";
 
@@ -21,6 +22,7 @@ router.get("/", getEjidatarios);
 
 // Obtener un ejidatario por ID
 router.get("/:id", getEjidatarioById);
+router.get("/id/:id", getEjidatarioByEjidatario);
 
 // Obtener un ejidatario por CURP
 router.get("/curp/:curp", getEjidatarioByCurp);
