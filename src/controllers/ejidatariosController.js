@@ -7,7 +7,7 @@ export const createEjidatario = async (req, res) => {
     await nuevoEjidatario.save();
     res.status(201).json({
       msg: "Ejidatario creado con exito",
-      nuevoEjidatario
+      nuevoEjidatario,
     });
   } catch (err) {
     console.error(err);
@@ -20,16 +20,16 @@ export const getEjidatarios = async (req, res) => {
     const ejidatarios = await Ejidatario.find();
     res.status(200).json(ejidatarios);
   } catch (err) {
-    res.status(400).json({ 
+    res.status(400).json({
       error: err.message,
-      msg: "No se encontraron ejidatarios"
+      msg: "No se encontraron ejidatarios",
     });
   }
 };
 
 export const getEjidatarioById = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findOne({_id : req.params.id});
+    const ejidatario = await Ejidatario.findOne({ _id: req.params.id });
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json(ejidatario);
@@ -40,7 +40,9 @@ export const getEjidatarioById = async (req, res) => {
 
 export const getEjidatarioByEjidatario = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findOne({iD_Ejidatario : req.params.id});
+    const ejidatario = await Ejidatario.findOne({
+      iD_Ejidatario: req.params.id,
+    });
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json(ejidatario);
@@ -51,7 +53,7 @@ export const getEjidatarioByEjidatario = async (req, res) => {
 
 export const getEjidatarioByCurp = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findOne({curp : req.params.curp});
+    const ejidatario = await Ejidatario.findOne({ curp: req.params.curp });
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json(ejidatario);
@@ -62,10 +64,15 @@ export const getEjidatarioByCurp = async (req, res) => {
 
 export const updateEjidatario = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findByIdAndUpdate(req.params._id,req.body);
+    const ejidatario = await Ejidatario.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
-    res.status(200).json({msg: "Ejidatario actualizado con exito",ejidatario});
+    res
+      .status(200)
+      .json({ msg: "Ejidatario actualizado con exito", ejidatario });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
