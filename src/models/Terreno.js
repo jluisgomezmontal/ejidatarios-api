@@ -12,6 +12,10 @@ const terrenoSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId, // Cambiado para usar ObjectId
     ref: "Ejidatario", // Referencia al modelo Ejidatario
   },
+  propietarioOrigen: { 
+    type: mongoose.Schema.ObjectId, // Cambiado para usar ObjectId
+    ref: "Ejidatario", // Referencia al modelo Ejidatario
+  },
 });
 
 const Terreno = mongoose.model("Terreno", terrenoSchema);
