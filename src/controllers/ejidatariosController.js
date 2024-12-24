@@ -66,13 +66,13 @@ export const updateEjidatario = async (req, res) => {
   try {
     const ejidatario = await Ejidatario.findByIdAndUpdate(
       req.params.id,
-      req.body
+      req.body,
+      { new: true, runValidators: true } // Retorna el documento actualizado y valida los datos
     );
     if (!ejidatario) {
       return res.status(404).json({ error: "Ejidatario no encontrado" });
-    } else {
-      res.json({ msg: "Ejidatario actualizado con exito", ejidatario });
     }
+    res.json({ msg: "Ejidatario actualizado con éxito", ejidatario });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
