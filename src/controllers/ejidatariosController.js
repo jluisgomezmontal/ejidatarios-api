@@ -68,11 +68,11 @@ export const updateEjidatario = async (req, res) => {
       req.params.id,
       req.body
     );
-    if (!ejidatario)
+    if (!ejidatario) {
       return res.status(404).json({ error: "Ejidatario no encontrado" });
-    res
-      .status(200)
-      .json({ msg: "Ejidatario actualizado con exito", ejidatario });
+    } else {
+      res.json({ msg: "Ejidatario actualizado con exito", ejidatario });
+    }
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
