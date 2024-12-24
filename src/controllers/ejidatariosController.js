@@ -1,5 +1,7 @@
 import Ejidatario from "../models/Ejidatario.js";
+import multer from "multer";
 
+const upload = multer();
 export const createEjidatario = async (req, res) => {
   try {
     req.body.documentoPDF = req.file ? req.file.filename : "";
@@ -62,21 +64,24 @@ export const getEjidatarioByCurp = async (req, res) => {
   }
 };
 
-export const updateEjidatario = async (req, res) => {
-  try {
-    const ejidatario = await Ejidatario.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true } // Retorna el documento actualizado y valida los datos
-    );
-    if (!ejidatario) {
-      return res.status(404).json({ error: "Ejidatario no encontrado" });
+export const updateEjidatario = [
+  upload.none(), // Middleware para procesar FormData sin archivos
+  async (req, res) => {
+    try {
+      const ejidatario = await Ejidatario.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true, runValidators: true }
+      );
+      if (!ejidatario) {
+        return res.status(404).json({ error: "Ejidatario no encontrado" });
+      }
+      res.json({ msg: "Ejidatario actualizado con éxito", ejidatario });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
     }
-    res.json({ msg: "Ejidatario actualizado con éxito", ejidatario });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+  },
+];
 
 export const getEjidatarioByPhoneNumber = async (req, res) => {
   try {
