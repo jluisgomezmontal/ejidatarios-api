@@ -103,9 +103,11 @@ export const getFile = async (req, res) => {
 export const deleteEjidatario = async (req, res) => {
   try {
     const ejidatario = await Ejidatario.findByIdAndDelete(req.params._id);
-    if (!ejidatario)
+    if (!ejidatario) {
       return res.status(404).json({ error: "Ejidatario no encontrado" });
-    res.status(200).json({ message: "Ejidatario eliminado exitosamente" });
+    } else {
+      res.status(200).json({ message: "Ejidatario eliminado exitosamente" });
+    }
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
