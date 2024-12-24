@@ -102,7 +102,7 @@ export const getFile = async (req, res) => {
 
 export const deleteEjidatario = async (req, res) => {
   try {
-    await Ejidatario.findByIdAndDelete(req.params._id);
+    const ejidatario = await Ejidatario.findByIdAndDelete(req.params._id);
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json({ message: "Ejidatario eliminado exitosamente" });
