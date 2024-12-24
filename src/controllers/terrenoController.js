@@ -1,18 +1,18 @@
 import Ejidatario from "../models/Ejidatario.js";
-import Terreno from "../models/Terreno.js"
+import Terreno from "../models/Terreno.js";
 
 export const createTerreno = async (req, res) => {
-    req.body.documentoPDF = req.file ? req.file.filename : "";
-    try {
-        const terreno = new Terreno(req.body);
-        await terreno.save();
-        res.status(201).json({
-            msg: "Terreno creado con exito",
-            terreno
-        });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
+  req.body.documentoPDF = req.file ? req.file.filename : "";
+  try {
+    const terreno = new Terreno(req.body);
+    await terreno.save();
+    res.status(201).json({
+      msg: "Terreno creado con exito",
+      terreno,
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
 
 export const getTerrenos = async (req, res) => {
@@ -34,14 +34,14 @@ export const getTerrenosById = async (req, res) => {
 };
 
 export const updateTerreno = async (req, res) => {
-    try {
-      const terreno = await Terreno.findByIdAndUpdate(req.params._id,req.body);
-      if (!terreno)
-        return res.status(404).json({ error: "Terreno no encontrado" });
-      res.status(200).json({msg: "Terreno actualizado con exito",terreno});
-    } catch (err) {
-      res.status(400).json({ error: err.message });
-    }
+  try {
+    const terreno = await Terreno.findByIdAndUpdate(req.params._id, req.body);
+    if (!terreno)
+      return res.status(404).json({ error: "Terreno no encontrado" });
+    res.status(200).json({ msg: "Terreno actualizado con exito", terreno });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
 
 export const getTerrenosBySujeto = async (req, res) => {
@@ -72,10 +72,10 @@ export const getNumeroParcela = async (req, res) => {
 };
 
 export const getFileTerreno = async (req, res) => {
-    try {
-        const filePath = `../../../../var/data/uploads/terrenos/${req.params.fileName}`;
-        res.download(filePath);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
+  try {
+    const filePath = `../../../../var/data/uploads/terrenos/${req.params.fileName}`;
+    res.download(filePath);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
