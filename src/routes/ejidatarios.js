@@ -34,7 +34,7 @@ router.get("/telefono/:telefono", getEjidatarioByPhoneNumber);
 router.get("/files/:fileName", getFile);
 
 // Actualizar un ejidatario
-router.put("/:id", updateEjidatario);
+router.put("/:id", upload.single("documentoPDF"), updateEjidatario);
 
 // Eliminar un ejidatario
 router.delete("/:id", deleteEjidatario);
