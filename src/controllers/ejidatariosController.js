@@ -67,6 +67,8 @@ export const updateEjidatario = async (req, res) => {
   try {
     if (req.file.filename) {
       req.body.documentoPDF = req.file.filename;
+    } else {
+      req.body.documentoPDF = req.body.documentoPDF;
     }
     const ejidatario = await Ejidatario.findByIdAndUpdate(
       req.params.id,
