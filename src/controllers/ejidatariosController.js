@@ -65,8 +65,9 @@ export const getEjidatarioByCurp = async (req, res) => {
 
 export const updateEjidatario = async (req, res) => {
   try {
-    console.log("file", req.file);
-    req.body.documentoPDF = req.file.filename;
+    if (req.file.filename) {
+      req.body.documentoPDF = req.file.filename;
+    }
     const ejidatario = await Ejidatario.findByIdAndUpdate(
       req.params.id,
       req.body,
