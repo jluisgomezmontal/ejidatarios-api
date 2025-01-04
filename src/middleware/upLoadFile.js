@@ -4,8 +4,8 @@ import multer from "multer";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (req.body.nombre) {
-      //cb(null, "../../../../var/data/uploads/ejidatarios");
-      cb(null, "uploads");
+      cb(null, "../../../../var/data/uploads/ejidatarios");
+      //cb(null, "uploads");
     } else {
       cb(null, "../../../../var/data/uploads/terrenos");
     }
