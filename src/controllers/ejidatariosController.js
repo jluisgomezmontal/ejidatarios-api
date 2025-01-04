@@ -12,7 +12,6 @@ export const createEjidatario = async (req, res) => {
       nuevoEjidatario,
     });
   } catch (err) {
-    console.error(err);
     res.status(400).json({ error: err.message });
   }
 };
@@ -64,23 +63,23 @@ export const getEjidatarioByCurp = async (req, res) => {
   }
 };
 
-export const updateEjidatario = [
-  async (req, res) => {
-    try {
-      const ejidatario = await Ejidatario.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true, runValidators: true }
-      );
-      if (!ejidatario) {
-        return res.status(404).json({ error: "Ejidatario no encontrado" });
-      }
-      res.json({ msg: "Ejidatario actualizado con éxito", ejidatario });
-    } catch (err) {
-      res.status(400).json({ error: err.message });
+export const updateEjidatario = async (req, res) => {
+  try {
+    console.log("file", req.file);
+    req.body.documentoPDF = req.file.filename;
+    const ejidatario = await Ejidatario.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!ejidatario) {
+      return res.status(404).json({ error: "Ejidatario no encontrado" });
     }
-  },
-];
+    res.json({ msg: "Ejidatario actualizado con éxito", ejidatario });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
 export const getEjidatarioByPhoneNumber = async (req, res) => {
   try {
