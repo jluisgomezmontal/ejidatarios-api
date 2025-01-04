@@ -65,7 +65,7 @@ export const getEjidatarioByCurp = async (req, res) => {
 
 export const updateEjidatario = async (req, res) => {
   try {
-    if (req.file.filename) {
+    if (req.file) {
       req.body.documentoPDF = req.file.filename;
     } else {
       req.body.documentoPDF = req.body.documentoPDF;
