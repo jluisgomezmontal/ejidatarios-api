@@ -68,6 +68,9 @@ export const updateEjidatario = [
   upload.none(), // Middleware para procesar FormData sin archivos
   async (req, res) => {
     try {
+      if (req.file) {
+        req.body.documentoPDF = req.file.filename;
+      }
       const ejidatario = await Ejidatario.findByIdAndUpdate(
         req.params.id,
         req.body,
