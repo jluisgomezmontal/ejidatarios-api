@@ -86,7 +86,7 @@ export const getNumeroParcela = async (req, res) => {
 export const getPosesionario = async (req, res) => {
   try {
     const terrenos = await Terreno.find({
-      numeroParcela: req.params.numeroParcela,
+      parcelaOrigen: req.params.numeroParcela,
     })
       .populate("propietario")
       .populate("propietarioOrigen");
