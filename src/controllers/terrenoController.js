@@ -73,9 +73,10 @@ export const getNumeroCertificado = async (req, res) => {
 
 export const getNumeroParcela = async (req, res) => {
   try {
-    const terrenos = await Terreno.findOne({
+    const terrenos = await Terreno.find({
       numeroParcela: req.params.numeroParcela,
     })
+      .populate("poseciones")
       .populate("propietario")
       .populate("propietarioOrigen");
     res.status(200).json(terrenos);

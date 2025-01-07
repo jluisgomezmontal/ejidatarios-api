@@ -8,13 +8,18 @@ const terrenoSchema = new mongoose.Schema({
   parcelaOrigen: { type: String, trim: true },
   documentoPDF: { type: String, trim: true },
   iD_Ejidatario: { type: String, trim: true, required: true },
-  propietario: { 
+  creado: { type: Date, default: Date.now },
+  propietario: {
     type: mongoose.Schema.ObjectId, // Cambiado para usar ObjectId
     ref: "Ejidatario", // Referencia al modelo Ejidatario
   },
-  propietarioOrigen: { 
+  propietarioOrigen: {
     type: mongoose.Schema.ObjectId, // Cambiado para usar ObjectId
     ref: "Ejidatario", // Referencia al modelo Ejidatario
+  },
+  poseciones: {
+    type: mongoose.Schema.ObjectId, // Cambiado para usar ObjectId
+    ref: "Terreno", // Referencia al modelo Ejidatario
   },
 });
 
