@@ -5,6 +5,7 @@ import ejidatarioRoutes from "./routes/ejidatarios.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
 import authRoute from "./routes/authRoute.js";
 import terrenos from "./routes/terrenos.js";
+import path from "path";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
