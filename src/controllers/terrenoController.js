@@ -38,10 +38,19 @@ export const getTerrenosById = async (req, res) => {
 
 export const updateTerreno = async (req, res) => {
   try {
-    const terreno = await Terreno.findByIdAndUpdate(req.params._id, req.body);
-    if (!terreno)
+    if (req.file) {
+      req.body.documentoPDF = req.file.filename;
+    } else {
+      req.body.documentoPDF = req.body.documentoPDF;
+    }
+    const terreno = await Terreno.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!terreno) {
       return res.status(404).json({ error: "Terreno no encontrado" });
-    res.status(200).json({ msg: "Terreno actualizado con exito", terreno });
+    }
+    res.json({ msg: "Terreno actualizado con éxito", terreno });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
