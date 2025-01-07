@@ -8,6 +8,7 @@ const terrenoSchema = new mongoose.Schema({
   parcelaOrigen: { type: String, trim: true },
   documentoPDF: { type: String, trim: true },
   iD_Ejidatario: { type: String, trim: true, required: true },
+  porcentaje: { type: String, trim: true },
   creado: { type: Date, default: Date.now },
   propietario: {
     type: mongoose.Schema.ObjectId, // Cambiado para usar ObjectId
