@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createTerreno,
+  deleteTerreno,
   getFileTerreno,
   getNumeroCertificado,
   getNumeroParcela,
