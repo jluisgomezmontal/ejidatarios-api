@@ -24,5 +24,5 @@ router.get("/certificado/:numeroCertificado", getNumeroCertificado);
 router.get("/parcela/:numeroParcela", getNumeroParcela);
 router.get("/origen/:numeroParcela", getPosesionario);
 router.get("/files/:fileName", getFileTerreno);
-
+router.delete("/:id", deleteTerreno);
 export default router;

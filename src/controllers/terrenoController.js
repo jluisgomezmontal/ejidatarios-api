@@ -114,3 +114,16 @@ export const getFileTerreno = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+export const deleteTerreno = async (req, res) => {
+  try {
+    const terreno = await Terreno.findByIdAndDelete(req.params.id);
+    if (!terreno) {
+      return res.status(404).json({ error: "Terreno no encontrado" });
+    } else {
+      res.status(200).json({ message: "Terreno eliminado exitosamente" });
+    }
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
