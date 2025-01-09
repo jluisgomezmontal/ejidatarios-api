@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import ejidatarioRoutes from "./routes/ejidatarios.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
-import authRoute from "./routes/authRoute.js";
 import terrenos from "./routes/terrenos.js";
 import path from "path";
 
@@ -30,7 +29,6 @@ mongoose
 app.use("/api/ejidatarios", ejidatarioRoutes);
 app.use("/api/terrenos", terrenos);
 app.use("/api/usuarios", usuariosRoutes);
-app.use("/api/auth", authRoute); // Rutas de autenticación
 app.use("/uploads", express.static(path.join("/var/data/uploads/ejidatarios")));
 
 // Iniciar servidor
