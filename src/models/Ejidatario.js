@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const ejidatarioSchema = new mongoose.Schema({
+const ejidatarioSchema = new mongoose.Schema(
+  {
     iD_Ejidatario: { type: String, required: true, unique: true, trim: true },
     nombre: { type: String, required: true, trim: true },
     apellidoPaterno: { type: String, required: true, trim: true },
@@ -10,7 +11,13 @@ const ejidatarioSchema = new mongoose.Schema({
     curp: { type: String, required: true, unique: true, trim: true },
     documentoPDF: { type: String },
     creado: { type: Date, default: Date.now },
-});
+    creadoPor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+    actualizadoPor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+  },
+  {
+    timestamps: true, // Agrega createdAt y updatedAt automáticamente
+  }
+);
 
 const Ejidatario = mongoose.model("Ejidatario", ejidatarioSchema);
 
