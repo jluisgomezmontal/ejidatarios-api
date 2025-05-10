@@ -11,8 +11,8 @@ const ejidatarioSchema = new mongoose.Schema(
     curp: { type: String, required: true, unique: true, trim: true },
     documentoPDF: { type: String },
     creado: { type: Date, default: Date.now },
-    creadoPor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
-    actualizadoPor: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+    creadoPor: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    actualizadoPor: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true, // Agrega createdAt y updatedAt automáticamente

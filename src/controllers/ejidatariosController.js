@@ -18,7 +18,9 @@ export const createEjidatario = async (req, res) => {
 
 export const getEjidatarios = async (req, res) => {
   try {
-    const ejidatarios = await Ejidatario.find();
+    const ejidatarios = await Ejidatario.find()
+      .populate("creadoPor")
+      .populate("actualizadoPor");
     res.status(200).json(ejidatarios);
   } catch (err) {
     res.status(400).json({
@@ -30,7 +32,9 @@ export const getEjidatarios = async (req, res) => {
 
 export const getEjidatarioById = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findOne({ _id: req.params.id });
+    const ejidatario = await Ejidatario.findOne({ _id: req.params.id })
+      .populate("creadoPor")
+      .populate("actualizadoPor");
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json(ejidatario);
@@ -43,7 +47,9 @@ export const getEjidatarioByEjidatario = async (req, res) => {
   try {
     const ejidatario = await Ejidatario.findOne({
       iD_Ejidatario: req.params.id,
-    });
+    })
+      .populate("creadoPor")
+      .populate("actualizadoPor");
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json(ejidatario);
@@ -54,7 +60,9 @@ export const getEjidatarioByEjidatario = async (req, res) => {
 
 export const getEjidatarioByCurp = async (req, res) => {
   try {
-    const ejidatario = await Ejidatario.findOne({ curp: req.params.curp });
+    const ejidatario = await Ejidatario.findOne({ curp: req.params.curp })
+      .populate("creadoPor")
+      .populate("actualizadoPor");
     if (!ejidatario)
       return res.status(404).json({ error: "Ejidatario no encontrado" });
     res.status(200).json(ejidatario);
