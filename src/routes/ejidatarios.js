@@ -9,6 +9,7 @@ import {
   getFile,
   deleteEjidatario,
   getEjidatarioByEjidatario,
+  getColeccion,
 } from "../controllers/ejidatariosController.js";
 import upload from "../middleware/upLoadFile.js";
 
@@ -32,6 +33,8 @@ router.get("/telefono/:telefono", getEjidatarioByPhoneNumber);
 
 // Descargar un archivo
 router.get("/files/:fileName", getFile);
+// Descargar coleccion
+router.get("/export", getColeccion);
 
 // Actualizar un ejidatario
 router.put("/:id", upload.single("documentoPDF"), updateEjidatario);

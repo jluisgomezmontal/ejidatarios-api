@@ -1,7 +1,8 @@
 import Ejidatario from "../models/Ejidatario.js";
 import multer from "multer";
+import mongoose from "mongoose";
+import fs from "fs";
 
-const upload = multer();
 export const createEjidatario = async (req, res) => {
   try {
     req.body.documentoPDF = req.file ? req.file.filename : "";
@@ -111,6 +112,28 @@ export const getFile = async (req, res) => {
     res.download(filePath);
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+};
+
+export const getColeccion = async (req, res) => {
+  const nombreColeccion = req.params.coleccion;
+
+  try {
+    const datos = await mongoose.connection.db
+      .collection(nombreColeccion)
+      .find({})
+      .toArray();
+
+    const nombreArchivo = `${nombreColeccion}.json`;
+    fs.writeFileSync(nombreArchivo, JSON.stringify(datos, null, 2));
+
+    res.download(nombreArchivo, (err) => {
+      if (err) console.error(err);
+      else fs.unlinkSync(nombreArchivo); // Borra el archivo después de descargar
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al exportar la colección.");
   }
 };
 
