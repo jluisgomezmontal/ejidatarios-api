@@ -34,7 +34,7 @@ router.get("/telefono/:telefono", getEjidatarioByPhoneNumber);
 // Descargar un archivo
 router.get("/files/:fileName", getFile);
 // Descargar coleccion
-router.get("/export", getColeccion);
+router.get("/export/:coleccion", getColeccion);
 
 // Actualizar un ejidatario
 router.put("/:id", upload.single("documentoPDF"), updateEjidatario);
