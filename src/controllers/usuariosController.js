@@ -12,7 +12,7 @@ export const registerUser = async (req, res) => {
     }
 
     // Create a new user instance
-    const newUser = new User({ name, telefono, password });
+    const newUser = new User({ name, telefono, password, isAdmin });
 
     // Save the user to the database
     await newUser.save();
