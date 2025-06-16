@@ -2,7 +2,7 @@ import User from "../models/Usuarios.js";
 
 // Create a new user (Register)
 export const registerUser = async (req, res) => {
-  const { name, telefono, password } = req.body;
+  const { name, telefono, password, isAdmin } = req.body;
 
   try {
     // Check if the user already exists
