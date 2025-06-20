@@ -1,7 +1,7 @@
 import Ejidatario from "../models/Ejidatario.js";
-import multer from "multer";
 import mongoose from "mongoose";
 import fs from "fs";
+import path from "path";
 
 export const createEjidatario = async (req, res) => {
   try {
@@ -115,6 +115,27 @@ export const getFile = async (req, res) => {
   }
 };
 
+// Función que convierte un documento a Extended JSON v2 (Mongo Shell compatible)
+function toExtendedJSON(doc) {
+  const result = {};
+
+  for (const key in doc) {
+    const value = doc[key];
+
+    if (value instanceof mongoose.Types.ObjectId) {
+      result[key] = { $oid: value.toHexString() };
+    } else if (value instanceof Date) {
+      result[key] = { $date: value.toISOString() };
+    } else if (value && typeof value === "object" && !Array.isArray(value)) {
+      result[key] = toExtendedJSON(value); // recursivo para objetos anidados
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
 export const getColeccion = async (req, res) => {
   const nombreColeccion = req.params.coleccion;
 
@@ -124,12 +145,18 @@ export const getColeccion = async (req, res) => {
       .find({})
       .toArray();
 
-    const nombreArchivo = `${nombreColeccion}.json`;
-    fs.writeFileSync(nombreArchivo, JSON.stringify(datos, null, 2));
+    // Convertir cada documento a Extended JSON v2
+    const extendedJSONDocs = datos.map((doc) => toExtendedJSON(doc));
+
+    // Guardar como NDJSON (un documento JSON por línea)
+    const contenido = extendedJSONDocs.map((d) => JSON.stringify(d)).join("\n");
+
+    const nombreArchivo = path.join(process.cwd(), `${nombreColeccion}_compass.json`);
+    fs.writeFileSync(nombreArchivo, contenido);
 
     res.download(nombreArchivo, (err) => {
       if (err) console.error(err);
-      else fs.unlinkSync(nombreArchivo); // Borra el archivo después de descargar
+      else fs.unlinkSync(nombreArchivo); // Borrar el archivo después de descargar
     });
   } catch (error) {
     console.error(error);

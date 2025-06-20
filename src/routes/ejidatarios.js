@@ -38,7 +38,6 @@ router.get("/export/:coleccion", getColeccion);
 
 // Actualizar un ejidatario
 router.put("/:id", upload.single("documentoPDF"), updateEjidatario);
-
 // Eliminar un ejidatario
 router.delete("/:id", deleteEjidatario);
 
