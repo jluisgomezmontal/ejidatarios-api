@@ -29,7 +29,7 @@ mongoose
 app.use("/api/ejidatarios", ejidatarioRoutes);
 app.use("/api/terrenos", terrenos);
 app.use("/api/usuarios", usuariosRoutes);
-app.use("/uploads", express.static(path.join("/var/data/uploads/ejidatarios")));
+app.use("/uploads", express.static(path.join("/var/data/uploads")));
 
 // Iniciar servidor
 app.listen(PORT, () => {
