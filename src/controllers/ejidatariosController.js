@@ -176,3 +176,42 @@ export const deleteEjidatario = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+export const searchEjidatarios = async (req, res) => {
+  try {
+    const { q } = req.query; // Ejemplo: /ejidatarios/search?q=gladiz cortes
+    if (!q) {
+      return res.status(400).json({ error: "Debes proporcionar un nombre o apellido para buscar" });
+    }
+
+    const regex = new RegExp(q, "i"); // Búsqueda parcial e insensible a mayúsculas
+
+    // Busca por nombre, apellido paterno, apellido materno o combinación
+    const resultados = await Ejidatario.find({
+      $or: [
+        { nombre: regex },
+        { apellidoPaterno: regex },
+        { apellidoMaterno: regex },
+        {
+          $expr: {
+            $regexMatch: {
+              input: { $concat: ["$nombre", " ", "$apellidoPaterno", " ", "$apellidoMaterno"] },
+              regex: q,
+              options: "i"
+            }
+          }
+        }
+      ]
+    })
+      .populate("creadoPor")
+      .populate("actualizadoPor");
+
+    if (!resultados.length) {
+      return res.status(404).json({ error: "No se encontraron ejidatarios" });
+    }
+
+    res.status(200).json(resultados);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
