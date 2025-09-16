@@ -10,7 +10,7 @@ router.post("/generate", upload.single("photo"), generateImage);
 router.post(
   "/actor",
   upload.fields([
-    { name: "photo1", maxCount: 1 },
+    { name: "photo", maxCount: 1 },
     { name: "photo2", maxCount: 1 },
   ]),
   generateImageTwoPhotos
