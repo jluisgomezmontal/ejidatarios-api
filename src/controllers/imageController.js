@@ -63,7 +63,7 @@ export const generateImageTwoPhotos = async (req, res) => {
     const { prompt, quality } = req.body;
 
     // Obtenemos las dos fotos del request
-    const photo1 = req.files["photo1"]?.[0];
+    const photo1 = req.files["photo"]?.[0];
     const photo2 = req.files["photo2"]?.[0];
 
     if (!photo1 || !photo2) {
