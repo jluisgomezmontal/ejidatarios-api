@@ -5,9 +5,12 @@ import ejidatarioRoutes from "./routes/ejidatarios.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
 import terrenos from "./routes/terrenos.js";
 import path from "path";
+import dotenv from "dotenv";
+import imageRoute from "./routes/imageRoute.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+dotenv.config();
 
 // Middleware
 app.use(express.json()); // Reemplaza bodyParser.json()
@@ -29,6 +32,7 @@ mongoose
 app.use("/api/ejidatarios", ejidatarioRoutes);
 app.use("/api/terrenos", terrenos);
 app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/generate-image", imageRoute);
 app.use("/uploads", express.static(path.join("/var/data/uploads")));
 
 // Iniciar servidor
