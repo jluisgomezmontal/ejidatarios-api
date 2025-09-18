@@ -76,12 +76,12 @@ export const generateImageTwoPhotos = async (req, res) => {
     // Seleccionamos el modelo según la calidad pedida
     let model;
     switch (quality) {
-      case "standard":
-        model = "imagen-4-standard";
-        break;
-      case "ultra":
-        model = "imagen-4-ultra";
-        break;
+      // case "standard":
+      //   model = "imagen-4-standard";
+      //   break;
+      // case "ultra":
+      //   model = "imagen-4-ultra";
+      //   break;
       default:
         model = "gemini-2.5-flash-image-preview"; // por defecto: flash
     }
