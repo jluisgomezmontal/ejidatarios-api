@@ -16,7 +16,7 @@ dotenv.config();
 app.use(express.json()); // Reemplaza bodyParser.json()
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://ejido-san-marcos.netlify.app"],
+    origin: ["http://localhost:5173", "https://ejido-san-marcos.netlify.app","https://foto-magica.netlify.app"],
   })
 );
 
