@@ -83,7 +83,8 @@ export const generateImageTwoPhotos = async (req, res) => {
       //   model = "imagen-4-ultra";
       //   break;
       default:
-        model = "gemini-2.5-flash-image-preview"; // por defecto: flash
+        // model = "gemini-2.5-flash-image-preview"; // por defecto: flash
+        model = "imagen-4.0-fast-generate-001"; // por defecto: flash
     }
 
     // Creamos el array contents con prompt + dos imágenes
